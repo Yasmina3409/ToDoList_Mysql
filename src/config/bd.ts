@@ -1,4 +1,4 @@
-import { DataSource , EntityRepository }  from 'typeorm';
+import { DataSource  }  from 'typeorm';
 import * as dotenv from 'dotenv';
  import { User } from "../entities/User";
 // import { Task } from "../entities/Task";
@@ -15,14 +15,15 @@ const myDataSource = new DataSource({
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
       
-      entities: ["./src/Entities/**/*.ts"], // Laissez la liste des entités vide pour le moment
+      entities: ["./src/entities/**/*.ts"], // Laissez la liste des entités vide pour le moment
       synchronize: true,
+     
 
 // À des fins de développement uniquement
     });
 
-    @EntityRepository(User) // Décorateur pour votre entité User
-    export class UserRepository {}
+   
+    
 
 export default myDataSource;
 

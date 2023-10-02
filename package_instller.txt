@@ -1,0 +1,50 @@
+Install the npm package:
+
+npm install express mysql pg reflect-metadata typeorm
+
+
+npm install typeorm --save
+
+You need to install reflect-metadata shim:
+
+npm install reflect-metadata --save
+
+and import it somewhere in the global place of your app (for example in app.ts):
+
+import "reflect-metadata"
+
+You may need to install node typings:
+
+npm install @types/node --save-dev
+
+Install a database driver:
+
+for MySQL or MariaDB
+
+npm install mysql --save (you can install mysql2 instead as well)
+npm install typescript --save-dev
+npm install @types/express @types/node --save-dev
+npm install nodemon ts-node --save-dev
+npm install express --save
+npm install --save-dev dotenv
+
+npm install --save-dev @types/cors @types/express @types/jsonwebtoken @types/node @types/swagger-jsdoc @types/swagger-ui-express
+
+
+ il faut ausi les installer dans le dependance régulière
+npm install express jsonwebtoken swagger-jsdoc swagger-ui-express
+
+
+npm install argon2
+npm install cors
+npm install express
+npm install jsonwebtoken
+npm install mysql
+npm install router
+npm install swagger-autogen
+npm install swagger-jsdoc
+npm install swagger-ui-express
+
+
+
+

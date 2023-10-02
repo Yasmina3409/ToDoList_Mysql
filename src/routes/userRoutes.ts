@@ -1,12 +1,13 @@
 import { Router } from "express";
- import {createUser }from "../controllers/userController";
+import { createUser, connectUser, getUser } from "../controllers/userControllers";
+import { authenticateToken } from "../authJWT";
 const router = Router();
 
-//router.get("/users", getUsers);
 
-router.post("/user", createUser);
-
-
+router.post("/signup", createUser);
+router.post("/login", connectUser);
+      
+router.post("/displayUser", authenticateToken, getUser);
 
 // router.put("/users/:id", updateUser);
 

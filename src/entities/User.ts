@@ -6,8 +6,9 @@ import {
     BaseEntity,
     CreateDateColumn,
     UpdateDateColumn,
+    OneToMany,
   } from "typeorm";
-  
+  import {Task} from  "./Task"
   @Entity('user')
   export class User extends BaseEntity {
     @PrimaryGeneratedColumn( {type: 'int' })
@@ -18,10 +19,10 @@ import {
     // @Unique(['email'])
     username: string;
 
-    @Column({ length: 100, nullable: false })
+  @Column({ length: 100, nullable: false })
   @Unique(['email'])
   email: string;
-  @Column({ length: 100, nullable: false, select: false })
+  @Column({ length: 100, nullable: false })
   password: string;
 //   @Column({ default: false })
 //   isDeleted: boolean;
@@ -31,4 +32,8 @@ import {
   
     @UpdateDateColumn()
     updatedAt: Date;
+
+    @OneToMany(() => Task, (task) => task.id_User)
+tasks: Task[]
+
   }
