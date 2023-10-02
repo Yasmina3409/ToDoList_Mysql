@@ -12,17 +12,12 @@ export const createTask = async (req: Request, res: Response) => {
       // #swagger.summary = 'Create a new task'
       // #swagger.responses[200] = { description: 'Create a new task with title- content- isDone end username'}
   try {
-    
-    const tokenHeader = req.header('Authorization');
-    const token = tokenHeader.split(' ')[1];
-    const decoded = jwt.decode(token) as { id: number };
-    const userId: any = decoded.id
+    const userId: number = req.body.user.id
     const task = new Task();
     // // Copiez les autres propriétés de req.body dans la tâche
-    task.title = req.body.title;
-    task.content = req.body.content;
-    task.isDone = req.body.isDone;
+    Object.assign(task, req.body);
     task.id_User = userId
+    console.log(task);
     // Utilisez le QueryBuilder pour insérer la tâche avec la colonne idUserId définie
     await taskRepository.createQueryBuilder().insert().into(Task).values(task).execute();
     // Enregistrez l'utilisateur dans la base de données
@@ -39,7 +34,7 @@ export const getTask = async (req: Request, res: Response) => {
   // #swagger.description = 'Endpoint to get all tasks.'
   // #swagger.summary = 'Get all tasks'
   // #swagger.responses[200] = { description: 'Tasks found.' }
-  const user_id  :any= req.params.id
+  const user_id  :string= req.body.user.id
   // /console.log(user_id)
   try {
   const task = taskRepository.createQueryBuilder("task");
@@ -61,7 +56,7 @@ export const getTaskCompleted = async (req: Request, res: Response) => {
   // #swagger.description = 'Endpoint to get all tasks completed.'
   // #swagger.summary = 'Get all tasks completed'
   // #swagger.responses[200] = { description: 'Tasks completed found.' }
-  const user_id = req.params.id
+  const user_id = req.body.user.id
   console.log(user_id)
   try {
     const task = taskRepository.createQueryBuilder("task");

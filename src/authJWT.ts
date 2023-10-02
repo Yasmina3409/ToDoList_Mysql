@@ -2,12 +2,13 @@ require("dotenv").config();
 import { Request, Response ,NextFunction} from "express";
 const SECRET = process.env.SECRET;
 import jwt, { VerifyErrors,TokenExpiredError } from "jsonwebtoken"
+import { User } from "./entities/User";
 
 interface CustomRequest extends Request {
     user?: string; // Définissez le type de 'user' selon vos besoins
   }
   export function generateAccessToken(pseudo: string , id: string) {
-    return jwt.sign({ pseudo: pseudo , id:id }, SECRET, { expiresIn: "60s" }); 
+    return jwt.sign({ pseudo: pseudo , id:id }, SECRET, { expiresIn: "3600s" }); 
     
 }
 
@@ -19,7 +20,7 @@ export function authenticateToken(req: Request, res: Response, next: NextFunctio
       res.status(401).json({ message: 'Token inexistant.' });
     }
     const token = tokenHeader.split(' ')[1];
-    jwt.verify(token, SECRET, (err: VerifyErrors | null, user: any) => {
+    jwt.verify(token, SECRET, (err: VerifyErrors | null, user: User) => {
       if (err) {
         if (err instanceof TokenExpiredError) {
           // Le token a expiré
@@ -31,6 +32,7 @@ export function authenticateToken(req: Request, res: Response, next: NextFunctio
       } else {
         console.log("token valid")
         // Le token est valide, vous pouvez accéder à l'utilisateur via user
+        req.body.user = user;
          // Optionnel : ajoutez l'utilisateur au corps de la demande
          next()
       }

@@ -10,7 +10,6 @@ import {
     JoinColumn,
    
   } from "typeorm";
-  import { Category } from './category'
 import { User } from "./User";
   @Entity('task')
   export class Task extends BaseEntity {
@@ -43,7 +42,7 @@ import { User } from "./User";
 
     @ManyToOne(() => User, (user) => user.tasks)
 // Assurez-vous que le nom de la colonne de clé étrangère correspond
-  id_User: User;
+  id_User: number;
 
     
   }

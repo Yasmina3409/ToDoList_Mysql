@@ -7,7 +7,7 @@ const router = Router();
 router.post("/signup", createUser);
 router.post("/login", connectUser);
       
-router.post("/displayUser", authenticateToken, getUser);
+router.get("/displayUser", authenticateToken, getUser);
 
 // router.put("/users/:id", updateUser);
 
